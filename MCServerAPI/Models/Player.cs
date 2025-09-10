@@ -1,4 +1,4 @@
-﻿namespace MCServerAPI;
+﻿namespace MCServerAPI.Models;
 
 public class Player
 {
