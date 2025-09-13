@@ -20,6 +20,7 @@ public class MinecraftServer : IDisposable
     public ServerGameRules GameRules { get; }
     public ServerBans Bans { get; }
     public ServerIpBans IpBans { get; }
+    public ServerSettings Settings { get; }
 
     public MinecraftServer(string uri, string secret)
     {
@@ -45,6 +46,7 @@ public class MinecraftServer : IDisposable
         GameRules = new ServerGameRules(this);
         Bans = new ServerBans(this);
         IpBans = new ServerIpBans(this);
+        Settings = new ServerSettings(this);
     }
 
     public async Task ConnectAsync()
