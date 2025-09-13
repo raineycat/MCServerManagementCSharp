@@ -17,6 +17,8 @@ public class MinecraftServer : IDisposable
     public ServerOperators Operators { get; }
     public ServerPlayers Players { get; }
     public ServerAllowList AllowList { get; }
+    public ServerGameRules GameRules { get; }
+    public ServerBans Bans { get; }
 
     public MinecraftServer(string uri, string secret)
     {
@@ -39,6 +41,8 @@ public class MinecraftServer : IDisposable
         Operators = new ServerOperators(this);
         Players = new ServerPlayers(this);
         AllowList = new ServerAllowList(this);
+        GameRules = new ServerGameRules(this);
+        Bans = new ServerBans(this);
     }
 
     public async Task ConnectAsync()

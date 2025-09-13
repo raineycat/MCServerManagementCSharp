@@ -16,4 +16,16 @@ await server.SendSystemMessageAsync(new SystemMessage
     Message = Message.OfTranslatable("block.minecraft.player_head.named", "Player")
 });
 
-await server.Players.KickAsync(Message.OfLiteral("waaa"), await server.Players.GetAsync());
+var keepInv = await server.GameRules.GetAsync("keepInventory");
+//if (keepInv is null or "false")
+if (keepInv == null || keepInv == "false")
+{
+    Console.WriteLine("Enabling keep inventory!");
+    await server.GameRules.UpdateAsync("keepInventory", "true");
+}
+
+await server.Bans.AddAsync(new UserBan
+{
+    Player = await server.Players.GetByNameAsync("reddust9"),
+    Reason = "because meow",
+});
