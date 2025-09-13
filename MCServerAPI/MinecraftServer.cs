@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Net;
 using System.Net.WebSockets;
 using MCServerAPI.Models;
 using Newtonsoft.Json.Serialization;
@@ -21,6 +20,7 @@ public class MinecraftServer : IDisposable
     public ServerBans Bans { get; }
     public ServerIpBans IpBans { get; }
     public ServerSettings Settings { get; }
+    public ServerNotificationHandler Notifications { get; }
 
     public MinecraftServer(string uri, string secret)
     {
@@ -33,7 +33,7 @@ public class MinecraftServer : IDisposable
         formatter.JsonSerializer.ContractResolver = new CamelCasePropertyNamesContractResolver();
         
         var handler = new WebSocketMessageHandler(_socket, formatter);
-        rpc = new JsonRpc(handler, this);
+        rpc = new JsonRpc(handler);
 
         #if DEBUG
         rpc.TraceSource = new TraceSource("RpcTracing", SourceLevels.All);
@@ -47,6 +47,13 @@ public class MinecraftServer : IDisposable
         Bans = new ServerBans(this);
         IpBans = new ServerIpBans(this);
         Settings = new ServerSettings(this);
+        
+        Notifications = new ServerNotificationHandler(this);
+        var targetOptions = new JsonRpcTargetOptions
+        {
+            AllowNonPublicInvocation = true
+        };
+        rpc.AddLocalRpcTarget(Notifications, targetOptions);
     }
 
     public async Task ConnectAsync()
