@@ -24,5 +24,10 @@ server.Notifications.PlayerJoined += (_, player) =>
     Console.WriteLine($"Player '{player.Name}' ({player.Id}) just joined!");
 };
 
+server.Notifications.GameRuleUpdated += (_, rule) =>
+{
+    Console.WriteLine($"Game rule '{rule.Key}' ({rule.Type}) was changed to: {rule.Value}");
+};
+
 await completionSource.Task;
 Console.WriteLine("Exiting...");
