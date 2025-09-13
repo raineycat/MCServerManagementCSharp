@@ -4,14 +4,16 @@ namespace MCServerAPI;
 
 public class ServerOperators(MinecraftServer server)
 {
+    private const string Namespace = "minecraft:operators";
+    
     public async Task<List<Operator>> GetAsync()
     {
-        return await server.rpc.InvokeAsync<List<Operator>>("minecraft:operators");
+        return await server.rpc.InvokeAsync<List<Operator>>(Namespace);
     }
     
     public async Task<List<Operator>> SetAsync(params IEnumerable<Operator> ops)
     {
-        return await server.rpc.InvokeAsync<List<Operator>>("minecraft:operators/set", ops.ToList());
+        return await server.rpc.InvokeAsync<List<Operator>>(Namespace + "/set", ops.ToList());
     }
 
     public async Task<List<Operator>> SetAsync(params IEnumerable<Player> players)
@@ -24,7 +26,7 @@ public class ServerOperators(MinecraftServer server)
     
     public async Task<List<Operator>> AddAsync(params IEnumerable<Operator> ops)
     {
-        return await server.rpc.InvokeAsync<List<Operator>>("minecraft:operators/add", ops.ToList());
+        return await server.rpc.InvokeAsync<List<Operator>>(Namespace + "/add", ops.ToList());
     }
 
     public async Task<List<Operator>> AddAsync(params IEnumerable<Player> players)
@@ -37,7 +39,7 @@ public class ServerOperators(MinecraftServer server)
     
     public async Task<List<Operator>> RemoveAsync(params IEnumerable<Operator> ops)
     {
-        return await server.rpc.InvokeAsync<List<Operator>>("minecraft:operators/remove", ops.ToList());
+        return await server.rpc.InvokeAsync<List<Operator>>(Namespace + "/remove", ops.ToList());
     }
 
     public async Task<List<Operator>> RemoveAsync(params IEnumerable<Player> players)
@@ -50,6 +52,6 @@ public class ServerOperators(MinecraftServer server)
 
     public async Task<List<Operator>> ClearAsync()
     {
-        return await server.rpc.InvokeAsync<List<Operator>>("minecraft:operators/clear");
+        return await server.rpc.InvokeAsync<List<Operator>>(Namespace + "/clear");
     }
 }
