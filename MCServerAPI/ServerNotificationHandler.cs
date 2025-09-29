@@ -6,13 +6,13 @@ namespace MCServerAPI;
 
 public class ServerNotificationHandler(MinecraftServer server)
 {
-    private const string Server = "notification:server";
-    private const string Players = "notification:players";
-    private const string Operators = "notification:operators";
-    private const string AllowList = "notification:allowlist";
-    private const string IpBans = "notification:ip_bans";
-    private const string Bans = "notification:bans";
-    private const string GameRules = "notification:gamerules";
+    private const string Server = "minecraft:notification/server";
+    private const string Players = "minecraft:notification/players";
+    private const string Operators = "minecraft:notification/operators";
+    private const string AllowList = "minecraft:notification/allowlist";
+    private const string IpBans = "minecraft:notification/ip_bans";
+    private const string Bans = "minecraft:notification/bans";
+    private const string GameRules = "minecraft:notification/gamerules";
     
     public event EventHandler? ServerStarted;
     public event EventHandler? ServerStopping;
